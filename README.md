@@ -1,8 +1,5 @@
 # historyplus
 
-```
-shopt -s extdebug
-
 preexec_invoke_exec () {
     [ -n "$COMP_LINE" ] && return  # do nothing if completing
     [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a preexec for $PROMPT_COMMAND
@@ -12,16 +9,16 @@ preexec_invoke_exec () {
         return 0
     fi
 
-    $this_command
+    eval $this_command
 
-    log="$(whoami),$(date +%s),$(pwd),$this_command"
+    if [ ! -z "$this_command" ];
+    then
+        log="$(whoami),$(date +%s),$(pwd),$this_command"
 
-    #printf "$(whoami),$(date +%s),$(pwd),$this_command,\n" >> ~/.historyplus
+        #printf "$(whoami),$(date +%s),$(pwd),$this_command,\n" >> ~/.historyplus
 
-    echo "$log" >> ~/.historyplus
-
+        echo "$log" >> ~/.historyplus
+    fi
     return 1 # This prevent executing of original command
 }
 trap 'preexec_invoke_exec' DEBUG
-
-```
