@@ -1,5 +1,6 @@
 # historyplus
 
+```
 preexec_invoke_exec () {
     [ -n "$COMP_LINE" ] && return  # do nothing if completing
     [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a preexec for $PROMPT_COMMAND
@@ -22,3 +23,4 @@ preexec_invoke_exec () {
     return 1 # This prevent executing of original command
 }
 trap 'preexec_invoke_exec' DEBUG
+```
